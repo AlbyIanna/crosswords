@@ -1,0 +1,15 @@
+.game-page {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.crossword-section {
+  padding: 10px;
+  flex-basis: 60%;
+  overflow: hidden;
+}
+
+.controls-section {
+  flex: 1;
+}

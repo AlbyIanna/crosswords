@@ -1,0 +1,67 @@
+.crossword {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  max-width: 450px;
+  font-family: arial, sans-serif;
+  text-transform: uppercase;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: repeat(5, 1fr);
+  gap: 1px;
+  border: 2px solid black;
+  box-sizing: border-box;
+  background-color: dimgray;
+}
+
+.cell {
+  /* border: 1px solid black; */
+  background-color: white;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.cell::before {
+  content: "";
+  display: inline-block;
+  width: 1px;
+  height: 0;
+  padding-bottom: 100%;
+}
+
+.cell.selected-line {
+  background-color: #a7d8ff;
+}
+
+.cell.selected-cell {
+  background-color: #ffda00;
+}
+
+.cell.black-cell {
+  background-color: black;
+}
+
+.cell input {
+  -webkit-appearance: none;
+  width: 100%;
+  height: 100%;
+  border: none;
+  text-align: center;
+  font-size: 300%;
+  text-transform: uppercase;
+  background-color: transparent;
+  cursor: default;
+  caret-color: transparent;
+}
+
+
+.cell input:focus {
+  outline: none;
+}
+
+
