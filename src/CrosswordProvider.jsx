@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
+import { CrosswordContext } from './CrosswordContext';
 
 const EMPTY_GRID = Array(5).fill().map(() => Array(5).fill(''));
 EMPTY_GRID[0][0] = '-';
@@ -185,4 +186,17 @@ export const useCrossword = (
   };
 }
 
+export function CrosswordProvider(props) {
+  const { children } = props;
+  const contextValue = useCrossword();
 
+  return (
+    <CrosswordContext.Provider value={contextValue}>
+      {children}
+    </CrosswordContext.Provider>
+  );
+}
+
+export function useCrosswordContext() {
+  return useContext(CrosswordContext);
+}

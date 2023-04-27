@@ -1,10 +1,22 @@
-export function Controls() {
+import './Controls.css';
+import { useCrossword, useCrosswordContext } from './CrosswordProvider';
+
+export function Controls({
+  clue = 'A type of tree',
+  nextClue = () => { },
+  previousClue = () => { },
+}) {
+  const { toggleDirection } = useCrosswordContext();
   return (
     <div className="controls">
       <div className="cluebar">
-        <span className="arrow-left" />
-        <span className="clue">Clue</span>
-        <span className="arrow-right" />
+        <button className="arrow-left">
+          <i className="cluebar-arrow" />
+        </button>
+        <button className="clue" onClick={toggleDirection}>{clue}</button>
+        <button className="arrow-right">
+          <i className="cluebar-arrow" />
+        </button>
       </div>
       <div className="keyboard">
         keyboard

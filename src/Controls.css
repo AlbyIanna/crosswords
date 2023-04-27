@@ -1,0 +1,44 @@
+.cluebar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 48px;
+  width: 100%;
+  background-color: #a7d8ff;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.cluebar-arrow {
+  margin-left: 17px;
+  background-image: url(./assets/clue-bar-chevron.svg);
+  height: 20px;
+  width: 11px;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+.arrow-left,
+.arrow-right {
+  display: flex;
+  align-items: center;
+  border: none;
+  background-color: transparent;
+  padding-right: 16px;
+  height: 100%;
+}
+
+.arrow-left {
+  transform: rotate(180deg);
+}
+
+.clue {
+  flex: 1;
+  background-color: transparent;
+  border: none;
+  font-size: 19px;
+  line-height: 21px;
+  font-family: nyt-franklin, Arial;
+  padding: 0;
+  text-align: left;
+  height: 100%;
+}

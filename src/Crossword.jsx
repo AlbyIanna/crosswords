@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 import './Crossword.css';
-import { useCrossword } from './hooks/useCrossword';
+import { useCrosswordContext } from './CrosswordProvider';
 
 export function Crossword() {
   const onFocusCell = (row, column) => {
@@ -17,13 +17,20 @@ export function Crossword() {
     deleteCell,
     insertLetter,
     gridLetters,
-  } = useCrossword(onFocusCell);
+  } = useCrosswordContext();
 
   // create refs for each cell in the grid
   const cellRefs = useRef([]);
   useEffect(() => {
     cellRefs.current = cellRefs.current.slice(0, gridLetters.length * gridLetters[0].length);
   }, [gridLetters]);
+
+  // on direction change, change the focus to the same cell in the new direction
+  useEffect(() => {
+    if (selected) {
+      onFocusCell(selected.row, selected.column);
+    }
+  }, [direction, selected]);
 
 
   const handleKeyDown = (event, row, column) => {
