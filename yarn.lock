@@ -1581,6 +1581,11 @@ react-refresh@^0.14.0:
   resolved "https://registry.yarnpkg.com/react-refresh/-/react-refresh-0.14.0.tgz#4e02825378a5f227079554d4284889354e5f553e"
   integrity sha512-wViHqhAd8OHeLS/IRMJjTSDHF3U9eWi62F/MledQGPdJGDhodXJ9PBLNGr6WWL7qlH12Mt3TyTpbS+hGXMjCzQ==
 
+react-simple-keyboard@^3.5.64:
+  version "3.5.64"
+  resolved "https://registry.yarnpkg.com/react-simple-keyboard/-/react-simple-keyboard-3.5.64.tgz#29507e481bdfa2c846f54958c95d326e30fa3e03"
+  integrity sha512-6f0wvr9PPYbcqPa4guA30WLzaxPnk/xR3VyMD3afd5CUn6VfTaDjABAlY27ddDFDRc+Jpo39UnJXVCaa35KBig==
+
 react@^18.2.0:
   version "18.2.0"
   resolved "https://registry.yarnpkg.com/react/-/react-18.2.0.tgz#555bd98592883255fa00de14f1151a917b5d77d5"

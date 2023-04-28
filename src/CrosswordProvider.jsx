@@ -1,4 +1,4 @@
-import { useState, useContext } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import { CrosswordContext } from './CrosswordContext';
 
 const EMPTY_GRID = Array(5).fill().map(() => Array(5).fill(''));
@@ -6,12 +6,20 @@ EMPTY_GRID[0][0] = '-';
 EMPTY_GRID[0][4] = '-';
 
 
-export const useCrossword = (
-  onFocusCell = () => { },
-) => {
+export const useCrossword = (clues) => {
   const [gridLetters, setGridLetters] = useState(EMPTY_GRID);
   const [selected, setSelected] = useState({ row: 0, column: 2 });
   const [direction, setDirection] = useState('across');
+  const [clue, setClue] = useState('');
+
+  // set the clue based on the selected cell and direction
+  useEffect(() => {
+    if (selected) {
+      const { row, column } = selected;
+      const clue = direction === 'across' ? clues.across[row]?.clue : clues.down[column]?.clue;
+      setClue(clue);
+    }
+  }, [selected, direction, clues]);
 
   const focusCell = (row, column) => {
     // check if the cell is outside the grid or if it is a black cell
@@ -19,7 +27,6 @@ export const useCrossword = (
       return;
     }
     setSelected({ row, column });
-    onFocusCell(row, column);
   }
 
   const handleClickCell = (row, column) => {
@@ -172,6 +179,38 @@ export const useCrossword = (
     selectNextCell();
   }
 
+  // go the next row or column that has free cells and select the first cell of that row or column
+  const nextClue = () => {
+    let nextCell;
+    if (direction === 'across') {
+      nextCell = findFirstCell(selected.row + 1, direction);
+    } else {
+      nextCell = findFirstCell(selected.column + 1, direction);
+    }
+    // if the next row or column is outside the grid, go to the first row or column and change direction
+    if (nextCell.row >= gridLetters.length || nextCell.column >= gridLetters[0].length) {
+      toggleDirection();
+      nextCell = findFirstCell(0, direction);
+    }
+    focusCell(nextCell.row, nextCell.column);
+  }
+
+  // go the previous row or column that has free cells and select the first cell of that row or column
+  const previousClue = () => {
+    let previousCell;
+    if (direction === 'across') {
+      previousCell = findFirstCell(selected.row - 1, direction);
+    } else {
+      previousCell = findFirstCell(selected.column - 1, direction);
+    }
+    // if the previous row or column is outside the grid, go to the last row or column and change direction 
+    if (previousCell.row < 0 || previousCell.column < 0) {
+      toggleDirection();
+      previousCell = findFirstCell(0, direction);
+    }
+    focusCell(previousCell.row, previousCell.column);
+  }
+
   return {
     selected,
     direction,
@@ -183,12 +222,15 @@ export const useCrossword = (
     deleteCell,
     insertLetter,
     gridLetters,
+    clue,
+    nextClue,
+    previousClue
   };
 }
 
 export function CrosswordProvider(props) {
-  const { children } = props;
-  const contextValue = useCrossword();
+  const { children, clues } = props;
+  const contextValue = useCrossword(clues);
 
   return (
     <CrosswordContext.Provider value={contextValue}>
