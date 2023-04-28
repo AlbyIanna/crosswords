@@ -4,7 +4,6 @@ import './Overlay.css';
 import image from './assets/mini-progress-blue-star.svg'
 
 
-
 export function Overlay({ children, onHide, visible, header, description, solved }) {
 
   return (
@@ -23,6 +22,7 @@ export function Overlay({ children, onHide, visible, header, description, solved
           {header}
         </h1>
         <div className="overlay-description">
+          {/* {minutes && seconds ? <div>You solved it in <b>{minutes}, {seconds}</b></div> : null} */}
           {description}
         </div>
         <div className="overlay-content">

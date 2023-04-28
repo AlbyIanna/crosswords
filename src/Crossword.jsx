@@ -32,6 +32,11 @@ export function Crossword() {
     }
   }, [direction, selected]);
 
+  const onClickCell = (rowIndex, columnIndex) => {
+    handleClickCell(rowIndex, columnIndex);
+    focusCell(rowIndex, columnIndex);
+  }
+
 
   const handleKeyDown = (event, row, column) => {
     switch (event.code) {
@@ -54,7 +59,7 @@ export function Crossword() {
         break;
       case 'Backspace':
         event.stopPropagation();
-        deleteCell(row, column);
+        deleteCell();
         break;
       default:
         event.stopPropagation();
@@ -67,30 +72,34 @@ export function Crossword() {
     }
   }
 
-  return <div className="crossword">
-    <div className="grid">
-      {
-        gridLetters.map((row, rowIndex) => {
-          return row.map((cell, columnIndex) => {
-            const selectedLine = direction === 'across' ? rowIndex === selected.row : columnIndex === selected.column;;
-            const selectedCell = rowIndex === selected.row && columnIndex === selected.column;
-            const blackCell = cell === '-';
-            return <div key={`${rowIndex}-${columnIndex}`}
-              className={`cell${selectedCell ? ' selected-cell' : ''}${selectedLine ? ' selected-line' : ''}${blackCell ? ' black-cell' : ''}
+  return <div className="crossword grid">
+    {
+      gridLetters.map((row, rowIndex) => {
+        return row.map((cell, columnIndex) => {
+          const selectedLine = direction === 'across' ? rowIndex === selected.row : columnIndex === selected.column;;
+          const selectedCell = rowIndex === selected.row && columnIndex === selected.column;
+          const blackCell = cell === '-';
+          return <div key={`${rowIndex}-${columnIndex}`}
+            className={`cell${selectedCell ? ' selected-cell' : ''}${selectedLine ? ' selected-line' : ''}${blackCell ? ' black-cell' : ''}
               `}>
-              {blackCell ? '' :
-                <input value={cell} maxLength="1" ref={el => cellRefs.current[rowIndex * gridLetters[0].length + columnIndex] = el}
-                  onMouseDown={() => handleClickCell(rowIndex, columnIndex)}
-                  onFocus={() => focusCell(rowIndex, columnIndex)}
-                  onChange={(event) => handleChangeCell(event, rowIndex, columnIndex)}
-                  onKeyDown={(event) => handleKeyDown(event, rowIndex, columnIndex)}
-                />
-              }
-            </div>
-          })
+            {blackCell ? '' :
+              <input inputMode='none' value={cell} maxLength="1" className='letter-input'
+                ref={el => cellRefs.current[rowIndex * gridLetters[0].length + columnIndex] = el}
+                onTouchStart={() => onClickCell(rowIndex, columnIndex)}
+                onFocus={() => focusCell(rowIndex, columnIndex)}
+                onChange={(event) => handleChangeCell(event, rowIndex, columnIndex)}
+                onKeyDown={(event) => handleKeyDown(event, rowIndex, columnIndex)}
+                onContextMenu={(event) => {
+                  event.preventDefault();
+                  event.stopPropagation();
+                  return false;
+                }}
+              />
+            }
+          </div>
         })
-      }
-    </div>
+      })
+    }
   </div>
 }
 

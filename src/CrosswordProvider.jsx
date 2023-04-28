@@ -41,8 +41,6 @@ export const useCrossword = (clues) => {
     setDirection(direction === 'across' ? 'down' : 'across');
   }
 
-
-
   const findFirstCell = (line, direction) => {
     let cell = { row: 0, column: 0 };
     if (direction === 'across') {
@@ -138,10 +136,10 @@ export const useCrossword = (clues) => {
     }
   }
 
-  const deleteCell = (row, column) => {
+  const deleteCell = (row = selected.row, column = selected.column) => {
     setFailed(false);
     setSolved(false);
-    if (gridLetters[row][column] === '') {
+    if (gridLetters[row] && gridLetters[row][column] === '') {
       let previousCell;
       if (direction === 'across') {
         previousCell = { row, column: column - 1 };
@@ -173,9 +171,7 @@ export const useCrossword = (clues) => {
     }
   }
 
-  const insertLetter = (letter) => {
-    // get row and column from the selected cell
-    const { row, column } = selected;
+  const insertLetter = (letter, row = selected.row, column = selected.column) => {
     // replace the value of the cell with the key pressed
     const newGridLetters = [...gridLetters];
     newGridLetters[row][column] = letter;

@@ -37,7 +37,7 @@ const buttonTheme = [
   }
 ]
 
-export function Controls() {
+export function Controls({ onSolved = () => { } }) {
   const {
     toggleDirection,
     clue,
@@ -52,13 +52,14 @@ export function Controls() {
   const [showSolved, setShowSolved] = useState(false);
 
   useEffect(() => {
-    console.log('failed', failed);
     setShowFailed(failed);
   }, [failed]);
 
   useEffect(() => {
-    console.log('solved', solved);
     setShowSolved(solved);
+    if (solved) {
+      onSolved();
+    }
   }, [solved]);
 
   const closeOverlay = () => {
@@ -71,6 +72,7 @@ export function Controls() {
       deleteCell();
     } else if (button === 'Draft') {
     } else if (button === 'Rebus') {
+    } else if (button === '123') {
     } else {
       insertLetter(button);
     }
@@ -87,11 +89,26 @@ export function Controls() {
         </button>
       </div>
       <div className="keyboard">
-        <Keyboard layout={keyboardLayout} buttonTheme={buttonTheme} onKeyPress={onKeyPress} />
+
+        <Keyboard layout={keyboardLayout} buttonTheme={buttonTheme} onKeyReleased={onKeyPress} />
       </div>
-      <Overlay visible={showSolved} header={"Bravissima!"} description={"Hai vinto un bacio!"} onHide={closeOverlay} solved>
+      <Overlay visible={showSolved} header={"Bravissima!"} description={
+        <div>
+          Hai vinto un bacio e una cena!
+          <div style={{ marginTop: 10 }}>
+            😘
+          </div>
+        </div>
+      } onHide={closeOverlay} solved>
       </Overlay>
-      <Overlay visible={showFailed} header={"Che flauta!"} description={"I thought you loved me."} onHide={closeOverlay}>
+      <Overlay visible={showFailed} header={"Che flauta!"} description={
+        <div>
+          I thought you loved me.
+          <div style={{ marginTop: 10 }}>
+            💔
+          </div>
+        </div>
+      } onHide={closeOverlay}>
         <button className='button' onClick={closeOverlay}>
           Riprovaci va!
         </button>

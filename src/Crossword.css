@@ -1,10 +1,9 @@
 .crossword {
-  height: 100%;
-  width: 100%;
   overflow: hidden;
   max-width: 450px;
   font-family: arial, sans-serif;
   text-transform: uppercase;
+  margin: auto;
 }
 
 .grid {
@@ -52,11 +51,13 @@
   height: 100%;
   border: none;
   text-align: center;
-  font-size: 300%;
+  font-size: 210%;
   text-transform: uppercase;
   background-color: transparent;
   cursor: default;
   caret-color: transparent;
+  -webkit-user-select: none; /* Safari */
+  user-select: none;
 }
 
 

@@ -5,21 +5,24 @@ import { ReadyPage } from './ReadyPage';
 import { GamePage } from './GamePage';
 
 function App() {
-  const [started, setStarted] = useState(false);
+  const [gameStatus, setGameStatus] = useState('initial');
+
+  const onSolved = () => {
+    setGameStatus('solved');
+  }
+
 
   return (
     <div className='app'>
-      <Header gameStatus={started ? 'started' : 'initial'} />
+      <Header gameStatus={gameStatus} />
       <div className='main'>
-        {
-          started ?
-            (
-              <GamePage />
-            )
-            :
-            (
-              <ReadyPage onStart={() => setStarted(true)} />
-            )
+        {gameStatus === 'initial' ?
+          (
+            <ReadyPage onStart={() => setGameStatus('started')} />
+          ) :
+          (
+            <GamePage onSolved={onSolved} />
+          )
         }
       </div>
     </div>

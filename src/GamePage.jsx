@@ -51,7 +51,7 @@ const CLUES = {
 }
 
 
-export function GamePage() {
+export function GamePage({ onSolved }) {
   return (
     <CrosswordProvider clues={CLUES}>
       <div className="game-page">
@@ -59,7 +59,7 @@ export function GamePage() {
           <Crossword />
         </div>
         <div className="controls-section">
-          <Controls />
+          <Controls onSolved={onSolved} />
         </div>
       </div >
     </CrosswordProvider>

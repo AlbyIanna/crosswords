@@ -113,6 +113,8 @@ header img.logo {
 
 .timer {
   display: flex;
+  height: 45px;
+
 }
 
 .timer-button {
@@ -132,6 +134,13 @@ header img.logo {
   content: url(./assets/timer-pause.svg);
   width: 13px;
   height: 15px;
+}
+
+.timer-digits {
+  height: 45px;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
 }
 
 .button-icon {

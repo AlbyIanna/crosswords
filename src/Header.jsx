@@ -40,17 +40,21 @@ export function Header({ gameStatus }) {
         </span>
       </span>
     </button>
-    {gameStatus === 'started' ?
+    {gameStatus === 'initial' ?
+      <>
+        <img src={logo} className="logo" alt="New York Times logo" />
+        <div className='empty-space-45'></div>
+      </> :
       <>
         <div className='timer'>
           <button onClick={pauseTimer} className='timer-button'>
-            <div>
+            <div className='timer-digits'>
               <span>{minutes}</span>:<span>{seconds.toLocaleString('en-US', {
                 minimumIntegerDigits: 2,
                 useGrouping: false
               })}</span>
             </div>
-            <i className='timer-button-icon'></i>
+            {gameStatus !== 'solved' && <i className='timer-button-icon'></i>}
           </button>
         </div>
         <div className='other-buttons'>
@@ -59,12 +63,8 @@ export function Header({ gameStatus }) {
           <button className='button-icon'><i className='settings'></i></button>
         </div>
       </>
-      : <>
-        <img src={logo} className="logo" alt="New York Times logo" />
-        <div className='empty-space-45'></div>
-      </>
     }
-    <Overlay visible={paused} onHide={unpause} header={"Your game is paused."} description={"Ready to play?"}>
+    <Overlay visible={paused && gameStatus !== 'solved'} onHide={unpause} header={"Your game is paused."} description={"Ready to play?"}>
       <button className='button' onClick={unpause}>
         Continue
       </button>
