@@ -9,7 +9,7 @@ function App() {
 
   return (
     <div className='app'>
-      <Header />
+      <Header gameStatus={started ? 'started' : 'initial'} />
       <div className='main'>
         {
           started ?
