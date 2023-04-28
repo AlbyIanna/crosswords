@@ -42,3 +42,75 @@
   text-align: left;
   height: 100%;
 }
+
+
+.keyboard .react-simple-keyboard {
+  padding: 16px 12px;
+  font-size: 24px;
+  font-family: nyt-franklin-cw,Arial;
+  overflow: visible;
+  border-radius: 0;
+  background-color: #e4eaef;
+}
+
+.keyboard .hg-theme-default .hg-row:not(:last-child) {
+  margin-bottom: 12px;
+}
+
+.keyboard .hg-theme-default .hg-rows .hg-row .hg-button {
+  min-height: 40px;
+  min-width: 20px;
+  border-radius: 4px;
+  z-index: 0;
+  position: relative;
+  box-shadow: none;
+  border-bottom: 1px solid #c9d1d9;
+}
+
+.keyboard .hg-theme-default .keyboard-letters.hg-activeButton {
+  background-color: #c9d1d9 !important;
+  font-size: 115%;
+}
+
+.keyboard .hg-theme-default .keyboard-secondary {
+  background-color: #c9d1d9;
+  border-bottom: 1px solid #b3bdc4;
+  font-size: 14px;
+}
+
+.keyboard .hg-theme-default .keyboard-backspace span {
+  display: none;
+}
+
+.keyboard .hg-theme-default .keyboard-backspace {
+  height: 40px;
+  width: 38px;
+  padding: 19px 5px 16px;
+}
+
+.keyboard .hg-theme-default .keyboard-backspace::before {
+  content: url(./assets/delete-outline.svg);
+  display: block;
+  background-repeat: no-repeat;
+  background-size: auto;
+}
+
+.keyboard .hg-theme-default .keyboard-secondary.hg-activeButton {
+  background-color: #b6bec5 !important;
+}
+
+.keyboard .hg-theme-default .keyboard-draft span {
+  display: none;
+}
+
+.keyboard .hg-theme-default .keyboard-draft {
+  padding: 19px 5px 16px;
+  overflow: hidden;
+}
+
+.keyboard .hg-theme-default .keyboard-draft::before {
+  content: url(./assets/pencil-outline.svg);
+  display: block;
+  background-repeat: no-repeat;
+  background-size: auto;
+}

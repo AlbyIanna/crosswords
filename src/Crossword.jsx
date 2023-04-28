@@ -61,7 +61,7 @@ export function Crossword() {
         event.preventDefault();
         // if the key pressed is a letter
         if (event.key.length === 1 && event.key.match(/[a-z]/i)) {
-          insertLetter(event.key.toUpperCase(), row, column);
+          insertLetter(event.key.toUpperCase());
         }
         break;
     }

@@ -171,7 +171,9 @@ export const useCrossword = (clues) => {
     }
   }
 
-  const insertLetter = (letter, row, column) => {
+  const insertLetter = (letter) => {
+    // get row and column from the selected cell
+    const { row, column } = selected;
     // replace the value of the cell with the key pressed
     const newGridLetters = [...gridLetters];
     newGridLetters[row][column] = letter;
