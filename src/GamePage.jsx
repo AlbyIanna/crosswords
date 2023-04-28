@@ -7,45 +7,45 @@ const CLUES = {
   down: [
     {
       clue: 'A type of tree',
-      answer: 'oak',
+      answer: 'AAAA',
     },
     {
       clue: 'Another type of tree',
-      answer: 'elm',
+      answer: 'AAAAA',
     },
     {
       clue: 'A third type of tree',
-      answer: 'ash',
+      answer: 'AAAAA',
     },
     {
       clue: 'An animal that lives in trees',
-      answer: 'squirrel',
+      answer: 'AAAAA',
     },
     {
       clue: 'A flower that grows on trees',
-      answer: 'cherry',
+      answer: 'AAAA',
     },
   ],
   across: [
     {
       clue: 'A city in California',
-      answer: 'oakland',
+      answer: 'AAA',
     },
     {
       clue: 'A city in Florida',
-      answer: 'orlando',
+      answer: 'AAAAA',
     },
     {
       clue: 'A mountain in Colorado',
-      answer: 'eldora',
+      answer: 'AAAAA',
     },
     {
       clue: 'A river in New York',
-      answer: 'allegheny',
+      answer: 'AAAAA',
     },
     {
       clue: 'A lake in Michigan',
-      answer: 'erie',
+      answer: 'AAAAA',
     },
   ]
 }

@@ -2,6 +2,8 @@ import './Controls.css';
 import { useCrosswordContext } from './CrosswordProvider';
 import Keyboard from 'react-simple-keyboard';
 import 'react-simple-keyboard/build/css/index.css';
+import { Overlay } from './Overlay';
+import { useEffect, useState } from 'react';
 
 const keyboardLayout = {
   'default': [
@@ -43,7 +45,26 @@ export function Controls() {
     previousClue,
     insertLetter,
     deleteCell,
+    solved,
+    failed,
   } = useCrosswordContext();
+  const [showFailed, setShowFailed] = useState(false);
+  const [showSolved, setShowSolved] = useState(false);
+
+  useEffect(() => {
+    console.log('failed', failed);
+    setShowFailed(failed);
+  }, [failed]);
+
+  useEffect(() => {
+    console.log('solved', solved);
+    setShowSolved(solved);
+  }, [solved]);
+
+  const closeOverlay = () => {
+    setShowFailed(false);
+    setShowSolved(false);
+  }
 
   const onKeyPress = (button) => {
     if (button === '{bksp}') {
@@ -68,6 +89,13 @@ export function Controls() {
       <div className="keyboard">
         <Keyboard layout={keyboardLayout} buttonTheme={buttonTheme} onKeyPress={onKeyPress} />
       </div>
-    </div>
+      <Overlay visible={showSolved} header={"Bravissima!"} description={"Hai vinto un bacio!"} onHide={closeOverlay} solved>
+      </Overlay>
+      <Overlay visible={showFailed} header={"Che flauta!"} description={"I thought you loved me."} onHide={closeOverlay}>
+        <button className='button' onClick={closeOverlay}>
+          Riprovaci va!
+        </button>
+      </Overlay>
+    </div >
   );
 }

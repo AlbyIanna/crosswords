@@ -11,6 +11,8 @@ export const useCrossword = (clues) => {
   const [selected, setSelected] = useState({ row: 0, column: 2 });
   const [direction, setDirection] = useState('across');
   const [clue, setClue] = useState('');
+  const [solved, setSolved] = useState(false);
+  const [failed, setFailed] = useState(false);
 
   // set the clue based on the selected cell and direction
   useEffect(() => {
@@ -39,9 +41,7 @@ export const useCrossword = (clues) => {
     setDirection(direction === 'across' ? 'down' : 'across');
   }
 
-  const isGridFull = () => {
-    return gridLetters.every(row => row.every(cell => cell !== ''));
-  }
+
 
   const findFirstCell = (line, direction) => {
     let cell = { row: 0, column: 0 };
@@ -79,7 +79,7 @@ export const useCrossword = (clues) => {
 
     if (nextCell.row < gridLetters.length && nextCell.column < gridLetters[0].length) {
       // if the next cell is empty or if the grid is full, return the next cell
-      if (gridLetters[nextCell.row][nextCell.column] === '' || isGridFull()) {
+      if (gridLetters[nextCell.row][nextCell.column] === '' || isGridFull(gridLetters)) {
         return nextCell;
       }
       return getNextCell(nextCell.row, nextCell.column);
@@ -139,6 +139,8 @@ export const useCrossword = (clues) => {
   }
 
   const deleteCell = (row, column) => {
+    setFailed(false);
+    setSolved(false);
     if (gridLetters[row][column] === '') {
       let previousCell;
       if (direction === 'across') {
@@ -178,7 +180,24 @@ export const useCrossword = (clues) => {
     const newGridLetters = [...gridLetters];
     newGridLetters[row][column] = letter;
     setGridLetters(newGridLetters);
-    selectNextCell();
+    const isOldGridFull = isGridFull(gridLetters);
+    const isNewGridFull = isGridFull(newGridLetters);
+    let shouldSetSolved = false;
+    let shouldSetFailed = false;
+    if (isNewGridFull) {
+      // if the grid is full, check if the puzzle is solved
+      const isSolved = checkSolution(newGridLetters, clues);
+      if (isSolved) {
+        shouldSetSolved = true;
+      } else {
+        shouldSetFailed = true;
+      }
+    }
+    if (isOldGridFull || !isNewGridFull) {
+      selectNextCell();
+    }
+    setSolved(shouldSetSolved);
+    setFailed(shouldSetFailed);
   }
 
   // go the next row or column that has free cells and select the first cell of that row or column
@@ -226,7 +245,9 @@ export const useCrossword = (clues) => {
     gridLetters,
     clue,
     nextClue,
-    previousClue
+    previousClue,
+    failed,
+    solved
   };
 }
 
@@ -244,3 +265,67 @@ export function CrosswordProvider(props) {
 export function useCrosswordContext() {
   return useContext(CrosswordContext);
 }
+
+const isGridFull = (gridLetters) => {
+  return gridLetters.every(row => row.every(cell => cell !== ''));
+}
+
+// clues is an objects with the following structure:
+// { across: [{ clue: 'clue', answer: 'answer' }, ...], down: [{ clue: 'clue', answer: 'answer' }, ...] }
+const checkSolution = (gridLetters, clues) => {
+  const gridWords = getGridWords(gridLetters);
+  const words = clues.across.map(clue => clue.answer).concat(clues.down.map(clue => clue.answer));
+  return gridWords.every(word => words.includes(word));
+}
+
+const getGridWords = (gridLetters) => {
+  const gridWords = [];
+  const acrossWords = getAcrossWords(gridLetters);
+  const downWords = getDownWords(gridLetters);
+  gridWords.push(...acrossWords, ...downWords);
+  return gridWords;
+}
+
+const getAcrossWords = (gridLetters) => {
+  const acrossWords = [];
+  for (let row = 0; row < gridLetters.length; row++) {
+    let word = '';
+    for (let column = 0; column < gridLetters[0].length; column++) {
+      if (gridLetters[row][column] !== '-') {
+        word += gridLetters[row][column];
+      } else {
+        if (word.length > 1) {
+          acrossWords.push(word);
+        }
+        word = '';
+      }
+    }
+    if (word.length > 1) {
+      acrossWords.push(word);
+    }
+  }
+  return acrossWords;
+}
+
+const getDownWords = (gridLetters) => {
+  const downWords = [];
+  for (let column = 0; column < gridLetters[0].length; column++) {
+    let word = '';
+    for (let row = 0; row < gridLetters.length; row++) {
+      if (gridLetters[row][column] !== '-') {
+        word += gridLetters[row][column];
+      } else {
+        if (word.length > 1) {
+          downWords.push(word);
+        }
+        word = '';
+      }
+    }
+    if (word.length > 1) {
+      downWords.push(word);
+    }
+  }
+  return downWords;
+}
+
+
