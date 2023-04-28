@@ -6,46 +6,46 @@ import './GamePage.css';
 const CLUES = {
   down: [
     {
-      clue: 'A type of tree',
-      answer: 'AAAA',
+      clue: '-',
+      answer: 'B',
     },
     {
-      clue: 'Another type of tree',
-      answer: 'AAAAA',
+      clue: 'In Italy, you eat it almost every day',
+      answer: 'PASTA',
     },
     {
-      clue: 'A third type of tree',
-      answer: 'AAAAA',
+      clue: 'NÃO in UK',
+      answer: 'NO',
     },
     {
-      clue: 'An animal that lives in trees',
-      answer: 'AAAAA',
+      clue: 'Some random noise',
+      answer: 'GU',
     },
     {
-      clue: 'A flower that grows on trees',
-      answer: 'AAAA',
+      clue: 'Pee without Es',
+      answer: 'P',
     },
   ],
   across: [
     {
-      clue: 'A city in California',
-      answer: 'AAA',
+      clue: 'Pee without Es',
+      answer: 'P',
     },
     {
-      clue: 'A city in Florida',
-      answer: 'AAAAA',
+      clue: 'What we\'re probably going to do when we get home',
+      answer: 'BANG',
     },
     {
-      clue: 'A mountain in Colorado',
-      answer: 'AAAAA',
+      clue: 'What risotto is, basically',
+      answer: 'SOUP',
     },
     {
-      clue: 'A river in New York',
-      answer: 'AAAAA',
+      clue: '-',
+      answer: 'T',
     },
     {
-      clue: 'A lake in Michigan',
-      answer: 'AAAAA',
+      clue: '-',
+      answer: 'A',
     },
   ]
 }

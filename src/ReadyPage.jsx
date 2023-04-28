@@ -12,8 +12,8 @@ export function ReadyPage({ onStart = () => { } }) {
         Ready to start solving?
       </div>
       <button className='button' onClick={onStart}>Play</button>
-      <div className='date'>Friday, April 21, 2023</div>
-      <div className='byMe'>By A. I.</div>
+      <div className='date'>Friday, April 28, 2023</div>
+      <div className='byMe'>By Alberto Iannaccone</div>
     </div>
   )
 }

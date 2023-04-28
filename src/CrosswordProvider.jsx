@@ -3,12 +3,24 @@ import { CrosswordContext } from './CrosswordContext';
 
 const EMPTY_GRID = Array(5).fill().map(() => Array(5).fill(''));
 EMPTY_GRID[0][0] = '-';
+EMPTY_GRID[0][2] = '-';
+EMPTY_GRID[0][3] = '-';
 EMPTY_GRID[0][4] = '-';
+EMPTY_GRID[1][4] = '-';
+EMPTY_GRID[2][0] = '-';
+EMPTY_GRID[3][0] = '-';
+EMPTY_GRID[4][0] = '-';
+EMPTY_GRID[3][2] = '-';
+EMPTY_GRID[3][3] = '-';
+EMPTY_GRID[3][4] = '-';
+EMPTY_GRID[4][2] = '-';
+EMPTY_GRID[4][3] = '-';
+EMPTY_GRID[4][4] = '-';
 
 
 export const useCrossword = (clues) => {
   const [gridLetters, setGridLetters] = useState(EMPTY_GRID);
-  const [selected, setSelected] = useState({ row: 0, column: 2 });
+  const [selected, setSelected] = useState({ row: 1, column: 2 });
   const [direction, setDirection] = useState('across');
   const [clue, setClue] = useState('');
   const [solved, setSolved] = useState(false);
